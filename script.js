@@ -28,7 +28,6 @@ canvas.addEventListener("mousemove", e => { if(drawing){ ctx.lineTo(e.offsetX,e.
 canvas.addEventListener("mouseup", ()=> drawing=false);
 canvas.addEventListener("mouseleave", ()=> drawing=false);
 
-// Touch support
 canvas.addEventListener("touchstart", e => {
   e.preventDefault();
   const touch = e.touches[0];
@@ -55,9 +54,7 @@ document.querySelectorAll(".signature-box").forEach(box=>{
   };
 });
 
-document.getElementById("clearSig").onclick = ()=>{
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-};
+document.getElementById("clearSig").onclick = ()=>{ ctx.clearRect(0,0,canvas.width,canvas.height); };
 
 document.getElementById("saveSig").onclick = ()=>{
   const data = canvas.toDataURL("image/png");
@@ -118,50 +115,87 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   // PDF generieren
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ unit:"mm", format:"a4" });
+  let y = 10;
 
-  pdf.setFontSize(16);
-  pdf.text("Probefahrt – Autofrank AG", 12, 12);
+  // Logo
+  const logo = new Image();
+  logo.src = 'assets/autofrank-logo.png';
+  logo.onload = () => {
 
-  pdf.setFontSize(11);
-  let y = 24;
+    pdf.addImage(logo,'PNG',12,10,50,20);
+    pdf.setFontSize(16);
+    pdf.text("Probefahrt – Autofrank AG", 12, 35);
+    y = 40;
+    pdf.setFontSize(12);
 
-  // Felder aus Formular
-  const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
-                  "marke","modell","kontrollschild","kilometerstand","vin","wagenNr",
-                  "startzeit","endzeit","mitarbeiter","verkaeufer",
-                  "selbstbehalt","lenkerAlter","bemerkungen","hinweise"];
-  fields.forEach(f=>{
-    const val = document.getElementById(f).value || "Keine Angabe";
-    pdf.text(`${f}: ${val}`, 12, y);
-    y+=8;
-  });
+    // 1. Fahrer & Kontaktdaten
+    pdf.text("1. Fahrer- & Kontaktdaten", 12, y); y+=6;
+    ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr"].forEach(f=>{
+      pdf.text(`${document.getElementById(f).previousElementSibling.textContent} ${document.getElementById(f).value}`, 12, y);
+      y+=6;
+    });
 
-  // Signaturen
-  if(sigF) pdf.addImage(sigF,"PNG",12,y,50,20);
-  if(sigG) pdf.addImage(sigG,"PNG",80,y,50,20);
-  y+=25;
+    // 2. Fahrzeug
+    y+=2; pdf.text("2. Fahrzeug", 12, y); y+=6;
+    ["marke","modell","kontrollschild","kilometerstand","vin","wagenNr"].forEach(f=>{
+      pdf.text(`${document.getElementById(f).previousElementSibling.textContent} ${document.getElementById(f).value}`, 12, y);
+      y+=6;
+    });
 
-  // Ausweis-Foto
-  const foto = document.getElementById("fotoPreview");
-  if(foto && foto.src && foto.style.display!=="none"){
-    pdf.addImage(foto.src, "JPEG", 12, y, 60, 40);
-  }
+    // 3. Probefahrt-Daten
+    y+=2; pdf.text("3. Probefahrt-Daten", 12, y); y+=6;
+    pdf.text(`Startzeit: ${document.getElementById("startzeit").value}`, 12, y); y+=6;
+    pdf.text(`Endzeit: ${document.getElementById("endzeit").value}`, 12, y); y+=6;
 
-  // Datenschutz
-  const dsCheck = document.getElementById("datenschutzOk").checked ? "Ja" : "Nein";
-  y += 45;
-  pdf.text(`Datenschutz akzeptiert: ${dsCheck}`, 12, y);
+    // 4. Mitarbeiter
+    y+=2; pdf.text(`4. Mitarbeiter: ${document.getElementById("mitarbeiter").value}`, 12, y); y+=6;
+    // 5. Verkäufer
+    pdf.text(`5. Verkäufer: ${document.getElementById("verkaeufer").value}`, 12, y); y+=6;
 
-  // PDF-Dateiname dynamisch: Vorname_Name_Zeitstempel
-  const vorname = document.getElementById("vorname").value || "Vorname";
-  const name = document.getElementById("name").value || "Nachname";
-  const now = new Date();
-  const timestamp = now.getFullYear().toString() +
-                    String(now.getMonth()+1).padStart(2,'0') +
-                    String(now.getDate()).padStart(2,'0') + "_" +
-                    String(now.getHours()).padStart(2,'0') +
-                    String(now.getMinutes()).padStart(2,'0') +
-                    String(now.getSeconds()).padStart(2,'0');
+    // 6. Versicherung
+    y+=2; pdf.text("6. Versicherung", 12, y); y+=6;
+    pdf.text(`Selbstbehalt: ${document.getElementById("selbstbehalt").value}`, 12, y); y+=6;
+    pdf.text(`Lenker: ${document.getElementById("lenkerAlter").value}`, 12, y); y+=6;
 
-  pdf.save(`Probefahrt_${vorname}_${name}_${timestamp}.pdf`);
+    // 7. Sonstiges
+    y+=2; pdf.text("7. Sonstiges", 12, y); y+=6;
+    pdf.text(`Bemerkungen: ${document.getElementById("bemerkungen").value}`, 12, y); y+=6;
+    pdf.text(`Hinweise: ${document.getElementById("hinweise").value}`, 12, y); y+=6;
+
+    // 8. Ausweis-Foto
+    const foto = document.getElementById("fotoPreview");
+    if(foto && foto.src && foto.style.display!=="none"){
+      y+=2; pdf.text("8. Ausweis-Foto", 12, y); y+=4;
+      pdf.addImage(foto.src,"JPEG",12,y,60,40); y+=45;
+    }
+
+    // 9. Datenschutz
+    y+=2; pdf.text("9. Datenschutz",12,y); y+=6;
+    const dsCheck = document.getElementById("datenschutzOk").checked ? "Ja":"Nein";
+    pdf.text(`Datenschutz akzeptiert: ${dsCheck}`,12,y); y+=10;
+
+    // 10. Signaturen
+    y+=2; pdf.text("10. Unterschriften",12,y); y+=6;
+    if(sigF){
+      pdf.addImage(sigF,"PNG",12,y,60,25);
+      pdf.text(`${document.getElementById("vorname").value} ${document.getElementById("name").value}`,12,y+27);
+    }
+    if(sigG){
+      pdf.addImage(sigG,"PNG",80,y,60,25);
+      pdf.text(`${document.getElementById("mitarbeiter").value}`,80,y+27);
+    }
+
+    // Dynamischer Dateiname
+    const vorname = document.getElementById("vorname").value || "Vorname";
+    const name = document.getElementById("name").value || "Nachname";
+    const now = new Date();
+    const timestamp = now.getFullYear().toString()+
+                      String(now.getMonth()+1).padStart(2,'0')+
+                      String(now.getDate()).padStart(2,'0')+"_"+ 
+                      String(now.getHours()).padStart(2,'0')+
+                      String(now.getMinutes()).padStart(2,'0')+
+                      String(now.getSeconds()).padStart(2,'0');
+
+    pdf.save(`Probefahrt_${vorname}_${name}_${timestamp}.pdf`);
+  };
 };
