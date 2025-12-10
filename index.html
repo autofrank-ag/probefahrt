@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probefahrt – Autofrank AG</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+<div class="page">
+  <header>
+    <img src="assets/autofrank-logo.png" alt="Autofrank Logo" class="logo">
+    <h1>Probefahrt – Autofrank AG</h1>
+    <p>Trockenloostrasse 65 · 8105 Regensdorf · Tel +41 43 388 68 68 · verkauf@autofrank.ch</p>
+  </header>
+
+  <form id="probefahrtForm">
+
+    <!-- Fahrer- & Kontaktdaten -->
+    <div class="card">
+      <h2>Fahrer- & Kontaktdaten</h2>
+      <div class="grid grid-2">
+        <div><label for="name">Name</label><input id="name" name="name" required></div>
+        <div><label for="vorname">Vorname</label><input id="vorname" name="vorname" required></div>
+        <div><label for="adresse">Adresse</label><input id="adresse" name="adresse" required></div>
+        <div><label for="plzOrt">PLZ / Ort</label><input id="plzOrt" name="plzOrt" required></div>
+        <div><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" required></div>
+        <div><label for="email">E-Mail</label><input id="email" name="email" type="email"></div>
+        <div><label for="geburtsdatum">Geburtsdatum</label><input id="geburtsdatum" name="geburtsdatum" type="date" required></div>
+        <div><label for="ausweisNr">Führerausweis-Nr.</label><input id="ausweisNr" name="ausweisNr" required></div>
+      </div>
+    </div>
+
+    <!-- Fahrzeugdaten -->
+    <div class="card">
+      <h2>Fahrzeug</h2>
+      <div class="grid grid-2">
+        <div>
+          <label for="marke">Marke</label>
+          <select id="marke" name="marke" required>
+            <option value="">Bitte wählen…</option>
+            <option>Abarth</option>
+            <option>Alfa Romeo</option>
+            <option>Aston Martin</option>
+            <option>Audi</option>
+            <option>BMW</option>
+            <option>Citroën</option>
+            <option>Dacia</option>
+            <option>DS Automobiles</option>
+            <option>Fiat</option>
+            <option>Ford</option>
+            <option>Honda</option>
+            <option>Hyundai</option>
+            <option>Jaguar</option>
+            <option>Jeep</option>
+            <option>Kia</option>
+            <option>Lamborghini</option>
+            <option>Land Rover</option>
+            <option>Lexus</option>
+            <option>Maserati</option>
+            <option>Mazda</option>
+            <option>Mercedes-Benz</option>
+            <option>Mini</option>
+            <option>Mitsubishi</option>
+            <option>Nissan</option>
+            <option>Opel</option>
+            <option>Peugeot</option>
+            <option>Porsche</option>
+            <option>Renault</option>
+            <option>Seat</option>
+            <option>Škoda</option>
+            <option>Subaru</option>
+            <option>Suzuki</option>
+            <option>Tesla</option>
+            <option>Toyota</option>
+            <option>Volkswagen</option>
+            <option>Volvo</option>
+          </select>
+        </div>
+        <div><label for="modell">Modell</label><input id="modell" name="modell" required></div>
+        <div><label for="kontrollschild">Kontrollschild</label><input id="kontrollschild" name="kontrollschild" required></div>
+        <div><label for="kilometerstand">Kilometerstand</label><input id="kilometerstand" name="kilometerstand" type="number"></div>
+        <div><label for="vin">Fahrgestellnummer (VIN)</label><input id="vin" name="vin"></div>
+      </div>
+    </div>
+
+    <!-- Ausweis-Foto -->
+    <div class="card">
+      <h2>Ausweis-Foto</h2>
+      <input type="file" id="ausweisFoto" accept="image/*" capture="environment">
+      <img id="fotoPreview" style="display:none; max-width:100%; margin-top:.5rem;">
+    </div>
+
+    <!-- Signaturen -->
+    <div class="card">
+      <h2>Unterschriften</h2>
+      <div class="grid grid-2">
+        <div>
+          <label>Fahrer:in</label>
+          <div class="signature-box" data-target="fahrer">Unterschrift erfassen</div>
+          <img id="sigFahrer" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataFahrer">
+        </div>
+        <div>
+          <label>Garage</label>
+          <div class="signature-box" data-target="garage">Unterschrift erfassen</div>
+          <img id="sigGarage" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataGarage">
+        </div>
+      </div>
+      <div style="margin-top:1rem; text-align:right;">
+        <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Signatur-Modal -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3>Unterschrift erfassen</h3>
+    <canvas id="signatureCanvas"></canvas>
+    <div style="margin-top:.7rem; display:flex; justify-content:space-between;">
+      <button class="btn-secondary" id="clearSig">Löschen</button>
+      <button class="btn-primary" id="saveSig">Übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
