@@ -1,0 +1,103 @@
+/* ===================== BASE STYLES ===================== */
+* { box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #f3f4f6; margin: 0; padding: 0; }
+.page { max-width: 900px; margin: auto; padding: 1rem; }
+
+/* ===================== HEADER ===================== */
+header { text-align: center; margin-bottom: 1rem; }
+header img.logo { max-width: 150px; margin-bottom: 0.5rem; }
+header h1 { margin: 0.2rem 0; font-size: 1.5rem; }
+header p { font-size: 0.9rem; color: #444; margin: 0; }
+
+/* ===================== CARD ===================== */
+.card { 
+  background: white; 
+  padding: 1rem; 
+  border-radius: 12px; 
+  margin-bottom: 1rem; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06); 
+}
+.card h2 { margin-top: 0; font-size: 1.2rem; }
+
+/* ===================== GRID ===================== */
+.grid { display: grid; gap: 0.75rem; }
+@media (min-width: 600px){
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ===================== FORM ELEMENTS ===================== */
+input, select, textarea {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.3);
+}
+
+/* ===================== SIGNATURE ===================== */
+.signature-box {
+  border: 2px dashed #9ca3af; 
+  padding: 0.7rem; 
+  text-align: center; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  background: #f9fafb; 
+  font-size: 0.9rem;
+}
+.signature-box.has-signature {
+  border-color: #10b981; 
+  background: #ecfdf5; 
+  color: #047857;
+}
+.signature-preview {
+  max-width: 100%; 
+  margin-top: 0.4rem; 
+  border: 1px solid #ccc; 
+  border-radius: 6px;
+}
+
+/* ===================== MODAL ===================== */
+.modal-backdrop {
+  position: fixed; 
+  inset: 0; 
+  background: rgba(0,0,0,0.45); 
+  display: none; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 9999;
+}
+.modal-backdrop.active { display: flex; }
+.modal {
+  background: white; 
+  padding: 1rem; 
+  border-radius: 14px; 
+  max-width: 450px; 
+  width: 95%;
+}
+#signatureCanvas { width: 100%; height: 220px; border: 1px solid #ddd; }
+
+/* ===================== BUTTONS ===================== */
+button { 
+  padding: 0.6rem 1.1rem; 
+  border-radius: 999px; 
+  border: none; 
+  cursor: pointer; 
+  font-size: 0.9rem;
+}
+.btn-primary { background: #2563eb; color: white; }
+.btn-secondary { background: #d1d5db; }
+.btn-danger { background: #dc2626; color: white; }
+
+/* ===================== IMAGE PREVIEW ===================== */
+#fotoPreview {
+  max-width: 100%; 
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
