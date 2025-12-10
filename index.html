@@ -92,7 +92,18 @@
       <div class="grid grid-2">
         <div><label for="startzeit">Startzeit*</label><input id="startzeit" name="startzeit" type="datetime-local" required></div>
         <div><label for="endzeit">Endzeit*</label><input id="endzeit" name="endzeit" type="datetime-local" required></div>
-        <div><label for="fahrzeugId">Fahrzeug-ID*</label><input id="fahrzeugId" name="fahrzeugId" required></div>
+        <div>
+          <label for="fahrzeugId">Fahrzeug-ID*</label>
+          <select id="fahrzeugId" name="fahrzeugId" required>
+            <option value="">Bitte wählen…</option>
+            <option>Damir Pepic</option>
+            <option>Denis Pepic</option>
+            <option>Premtim Zuta</option>
+            <option>Yannick Rueda</option>
+            <option>Volkan Celik</option>
+            <option>Noari Nuzzo</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -115,12 +126,29 @@
       </div>
     </div>
 
-    <!-- Versicherung -->
+    <!-- Versicherungsinfo -->
     <div class="card">
-      <h2>Versicherung*</h2>
-      <div class="grid grid-2">
-        <div><label for="versicherung">Versicherungsfirma*</label><input id="versicherung" name="versicherung" required></div>
-        <div><label for="policenNr">Policen-Nr.*</label><input id="policenNr" name="policenNr" required></div>
+      <h2>Versicherung (Information)</h2>
+      <p class="small">
+        Autofrank AG hat nachfolgende Versicherungen abgeschlossen:
+      </p>
+      <ul class="small">
+        <li>Haftpflicht unbegrenzt</li>
+        <li>Vollkaskoversicherung</li>
+      </ul>
+      <div class="grid grid-3">
+        <div>
+          <label for="selbstbehalt">Selbstbehalt in CHF</label>
+          <input id="selbstbehalt" name="selbstbehalt" type="number" placeholder="z. B. 500" />
+        </div>
+        <div>
+          <label for="lenkerAlter">Lenker:in</label>
+          <select id="lenkerAlter" name="lenkerAlter">
+            <option value="">Keine Angabe</option>
+            <option value="unter25">unter 25 Jahren</option>
+            <option value="ueber25">25 Jahre oder älter</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -149,17 +177,8 @@
         <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
       </div>
       <details>
-        <summary>Datenschutzinformation anzeigen</summary>
-        <div class="ds-text">
-          Verantwortliche Stelle: Autofrank AG, Trockenloostrasse 65, 8105 Regensdorf, Tel.: +41 43 388 68 68, E-Mail: verkauf@autofrank.ch
-          <br>1) Zweck der Datenbearbeitung: Probefahrt prüfen, Identifikation, Vertragspflichten, Versicherungsschutz etc.
-          <br>2) Kategorien: Name, Vorname, Adresse, Geburtsdatum, Führerausweis, Fahrzeugdaten, Signaturen
-          <br>3) Empfänger: Versicherungen, Behörden (falls nötig)
-          <br>4) Aufbewahrung: Gesetzlich vorgeschrieben oder solange notwendig
-          <br>5) Rechte: Auskunft, Löschung, Berichtigung, Widerspruch
-          <br>6) Datensicherheit: Technische und organisatorische Massnahmen
-          <br>7) Bestätigung: Mit Unterschrift bestätige ich Kenntnisnahme
-        </div>
+        <summary>Datenschutzinformationen anzeigen</summary>
+        <pre id="datenschutzText" style="white-space: pre-wrap;"></pre>
       </details>
     </div>
 
@@ -201,5 +220,67 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+  // Datenschutztext einfügen
+  const datenschutzText = `
+Verantwortliche Stelle
+Autofrank AG
+Trockenloostrasse 65
+8105 Regensdorf
+Tel.: +41 43 388 68 68
+E-Mail: verkauf@autofrank.ch
+
+1) Zweck der Datenbearbeitung
+Wir bearbeiten Ihre Personendaten im Rahmen der Probefahrt zum Zweck:
+• der Prüfung Ihrer Fahrberechtigung
+• der Durchführung und Abwicklung der Probefahrt
+• der Identifikation im Schadenfall
+• der Sicherstellung vertraglicher und versicherungsrechtlicher Pflichten
+• der Wahrung unserer berechtigten Interessen (u. a. Schutz von Fahrzeugen)
+Die Bereitstellung der Daten ist für die Durchführung einer Probefahrt erforderlich.
+Ohne diese Angaben ist eine Probefahrt nicht möglich.
+
+2) Kategorien von Personendaten
+Wir bearbeiten insbesondere folgende Datenkategorien:
+• Identifikationsdaten (Name, Vorname, Adresse, Geburtsdatum)
+• Kontaktdaten (Telefonnummer, E-Mail falls angegeben)
+• Führerausweis-Daten (Nummer, Gültigkeit)
+• Fahrzeugbezogene Daten der Probefahrt (Kennzeichen, Kilometerstand, Datum, Fahrzeiten)
+• Unterschrift
+Falls ein Schaden entsteht, können zusätzliche Angaben erforderlich sein (z. B. Beschreibung des Vorfalls).
+
+3) Empfänger von Personendaten
+Ihre Daten können weitergegeben werden an:
+• Versicherungen
+• Strafverfolgungsbehörden / zuständige Ämter (nur falls erforderlich)
+• Partnerunternehmen zur administrativen Unterstützung
+Eine Weitergabe erfolgt ausschliesslich für die oben genannten Zwecke.
+
+4) Aufbewahrungsdauer
+Die Daten werden nur so lange gespeichert, wie dies:
+• zur Erreichung der Zwecke erforderlich ist oder
+• gesetzliche Aufbewahrungsfristen bestehen (z. B. Versicherungs- / Haftpflichtrecht)
+Danach werden die Daten gelöscht oder anonymisiert.
+
+5) Rechte der betroffenen Person
+Sie haben nach revDSG folgende Rechte:
+• Auskunft über Ihre bearbeiteten Personendaten
+• Berichtigung unrichtiger oder unvollständiger Daten
+• Löschung, sofern keine gesetzlichen Pflichten entgegenstehen
+• Einschränkung der Bearbeitung
+• Widerspruch gegen Bearbeitung, soweit sich diese auf überwiegende Interessen stützt
+Anfragen richten Sie bitte an: verkauf@autofrank.ch
+Wir beantworten Ihr Anliegen so schnell wie möglich und gemäss den gesetzlichen Vorgaben.
+
+6) Datensicherheit
+Wir schützen Ihre Daten mit angemessenen technischen und organisatorischen Massnahmen
+gegen Verlust, unberechtigten Zugriff, Manipulation und unbefugte Weitergabe.
+
+7) Bestätigung
+Mit Ihrer Unterschrift bestätigen Sie, dass Sie diese Datenschutzinformation
+zur Kenntnis genommen haben und mit der Bearbeitung der Personendaten einverstanden sind.
+  `;
+  document.getElementById("datenschutzText").textContent = datenschutzText;
+</script>
 </body>
 </html>
