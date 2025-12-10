@@ -74,10 +74,48 @@ document.getElementById("saveSig").onclick = ()=>{
 };
 
 /* ===========================================================
-   PDF EXPORT
+   VALIDIERUNG UND PDF EXPORT
 =========================================================== */
 document.getElementById("pdfBtn").onclick = async ()=>{
+  const form = document.getElementById("probefahrtForm");
+  let valid = true;
 
+  // Alle Pflichtfelder prüfen
+  form.querySelectorAll("[required]").forEach(field=>{
+    field.style.border = ""; // reset
+    let error = field.nextElementSibling;
+    if(error && error.classList.contains("error-msg")) error.remove();
+
+    if(field.type==="checkbox" && !field.checked){
+      valid=false;
+      field.style.border="2px solid red";
+      const msg = document.createElement("div");
+      msg.className="error-msg";
+      msg.style.color="red";
+      msg.style.fontSize="0.8rem";
+      msg.textContent="Bitte bestätigen";
+      field.parentNode.appendChild(msg);
+    } else if((field.type==="text" || field.tagName==="INPUT" || field.tagName==="SELECT" || field.tagName==="DATE") && !field.value){
+      valid=false;
+      field.style.border="2px solid red";
+      const msg = document.createElement("div");
+      msg.className="error-msg";
+      msg.style.color="red";
+      msg.style.fontSize="0.8rem";
+      msg.textContent="Bitte ausfüllen";
+      field.parentNode.appendChild(msg);
+    }
+  });
+
+  // Signaturen prüfen
+  const sigF = document.getElementById("sigDataFahrer").value;
+  const sigG = document.getElementById("sigDataGarage").value;
+  if(!sigF){ valid=false; alert("Bitte die Unterschrift Fahrer:in erfassen."); }
+  if(!sigG){ valid=false; alert("Bitte die Unterschrift Garage erfassen."); }
+
+  if(!valid) return;
+
+  // PDF generieren
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ unit:"mm", format:"a4" });
 
@@ -85,38 +123,30 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   pdf.text("Probefahrt – Autofrank AG", 12, 12);
 
   pdf.setFontSize(11);
-  pdf.text(`Name: ${document.getElementById("name").value}`, 12, 24);
-  pdf.text(`Vorname: ${document.getElementById("vorname").value}`, 12, 32);
-  pdf.text(`Adresse: ${document.getElementById("adresse").value}`, 12, 40);
-  pdf.text(`PLZ/Ort: ${document.getElementById("plz").value}`, 12, 48);
-  pdf.text(`Mobile: ${document.getElementById("mobile").value}`, 12, 56);
-  pdf.text(`E-Mail: ${document.getElementById("email").value}`, 12, 64);
-  pdf.text(`Geburtsdatum: ${document.getElementById("geburtsdatum").value}`, 12, 72);
-  pdf.text(`Führerausweis-Nr.: ${document.getElementById("ausweisNr").value}`, 12, 80);
-
-  pdf.text(`Marke: ${document.getElementById("marke").value}`, 12, 96);
-  pdf.text(`Modell: ${document.getElementById("modell").value}`, 12, 104);
-  pdf.text(`Kontrollschild: ${document.getElementById("schild").value}`, 12, 112);
-  pdf.text(`Kilometerstand: ${document.getElementById("kilometerstand").value}`, 12, 120);
-  pdf.text(`VIN: ${document.getElementById("vin").value}`, 12, 128);
+  const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
+                  "marke","modell","kontrollschild","kilometerstand","vin"];
+  let y = 24;
+  fields.forEach(f=>{
+    const val = document.getElementById(f).value || "";
+    pdf.text(`${f}: ${val}`, 12, y);
+    y+=8;
+  });
 
   // Unterschriften
-  const sigF = document.getElementById("sigDataFahrer").value;
-  const sigG = document.getElementById("sigDataGarage").value;
-  if(sigF){
-    pdf.addImage(sigF, "PNG", 12, 140, 50, 20);
-    pdf.text("Fahrer:in", 12, 135);
-  }
-  if(sigG){
-    pdf.addImage(sigG, "PNG", 80, 140, 50, 20);
-    pdf.text("Garage", 80, 135);
-  }
+  if(sigF) pdf.addImage(sigF,"PNG",12,y,50,20);
+  if(sigG) pdf.addImage(sigG,"PNG",80,y,50,20);
+  y+=25;
 
   // Ausweis-Foto
   const foto = document.getElementById("fotoPreview");
   if(foto && foto.src && foto.style.display!=="none"){
-    pdf.addImage(foto.src, "JPEG", 12, 170, 60, 40);
+    pdf.addImage(foto.src, "JPEG", 12, y, 60, 40);
   }
+
+  // Datenschutz
+  const dsCheck = document.getElementById("datenschutzOk").checked ? "Ja" : "Nein";
+  y += 45;
+  pdf.text(`Datenschutz akzeptiert: ${dsCheck}`, 12, y);
 
   pdf.save("probefahrt_autofrank.pdf");
 };
