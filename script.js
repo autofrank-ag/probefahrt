@@ -1,4 +1,4 @@
-// Vollständige DSG
+// DSG Text
 const datenschutzText = `
 Verantwortliche Stelle
 Autofrank AG
@@ -57,32 +57,32 @@ gegen Verlust, unberechtigten Zugriff, Manipulation und unbefugte Weitergabe.
 Mit Ihrer Unterschrift bestätigen Sie, dass Sie diese Datenschutzinformation
 zur Kenntnis genommen haben und mit der Bearbeitung der Personendaten einverstanden sind.
 `;
+
 document.getElementById("datenschutzText").textContent = datenschutzText;
 
-// Foto-Preview
+// Foto Preview
 document.getElementById("ausweisFoto").addEventListener("change", e=>{
-  const file=e.target.files[0];
-  const img=document.getElementById("fotoPreview");
+  const file = e.target.files[0];
+  const img = document.getElementById("fotoPreview");
   if(!file){ img.style.display="none"; img.src=""; return; }
-  const reader=new FileReader();
-  reader.onload=ev=>{ img.src=ev.target.result; img.style.display="block"; }
+  const reader = new FileReader();
+  reader.onload = ev => { img.src = ev.target.result; img.style.display="block"; };
   reader.readAsDataURL(file);
 });
 
 // Signaturen
 document.querySelectorAll(".signature-box").forEach(box=>{
-  box.onclick=()=>{
-    const target=box.dataset.target;
-    const canvas=document.createElement("canvas");
+  box.onclick = ()=>{
+    const target = box.dataset.target;
+    const canvas = document.createElement("canvas");
     canvas.width=400; canvas.height=150;
     canvas.style.border="1px solid #000";
     canvas.style.position="fixed";
-    canvas.style.left="50%";
-    canvas.style.top="50%";
+    canvas.style.left="50%"; canvas.style.top="50%";
     canvas.style.transform="translate(-50%,-50%)";
     canvas.style.zIndex="9999";
     document.body.appendChild(canvas);
-    const ctx=canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     ctx.lineWidth=2; ctx.lineCap="round";
     let drawing=false;
 
@@ -96,12 +96,12 @@ document.querySelectorAll(".signature-box").forEach(box=>{
     canvas.addEventListener("mouseleave", ()=>{ drawing=false; });
 
     canvas.addEventListener("dblclick", ()=>{
-      const dataUrl=canvas.toDataURL();
+      const dataUrl = canvas.toDataURL();
       if(target==="fahrer"){
         document.getElementById("sigDataFahrer").value=dataUrl;
         document.getElementById("sigFahrer").src=dataUrl;
         document.getElementById("sigFahrer").style.display="block";
-      }else{
+      } else {
         document.getElementById("sigDataGarage").value=dataUrl;
         document.getElementById("sigGarage").src=dataUrl;
         document.getElementById("sigGarage").style.display="block";
@@ -109,9 +109,9 @@ document.querySelectorAll(".signature-box").forEach(box=>{
       document.body.removeChild(canvas);
     });
   };
-});
+};
 
-// PDF Button
-document.getElementById("pdfBtn").onclick=()=>{
+// PDF Button placeholder
+document.getElementById("pdfBtn").onclick = ()=>{
   alert("PDF-Funktion kann optional über jsPDF aktiviert werden.");
 };
