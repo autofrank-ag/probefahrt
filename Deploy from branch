@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probefahrt – Autofrank AG</title>
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="style.css">
+
+<!-- jsPDF & html2canvas CDN für PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <img src="assets/autofrank-logo.png" alt="Autofrank Logo" class="logo">
+    <h1>Probefahrt – Autofrank AG</h1>
+    <p>Trockenloostrasse 65 · 8105 Regensdorf · Tel +41 43 388 68 68 · verkauf@autofrank.ch</p>
+  </header>
+
+  <form id="probefahrtForm">
+    <!-- Fahrer- & Kontaktdaten -->
+    <div class="card">
+      <h2>Fahrer- & Kontaktdaten</h2>
+      <div class="grid grid-2">
+        <div><label>Name</label><input id="name" required></div>
+        <div><label>Vorname</label><input id="vorname" required></div>
+        <div><label>Adresse</label><input id="adresse" required></div>
+        <div><label>PLZ / Ort</label><input id="plz" required></div>
+        <div><label>Mobile</label><input id="mobile" type="tel" required></div>
+        <div><label>E-Mail</label><input id="email" type="email"></div>
+        <div><label>Geburtsdatum</label><input id="geburtsdatum" type="date" required></div>
+        <div><label>Führerausweis-Nr.</label><input id="ausweisNr" required></div>
+      </div>
+    </div>
+
+    <!-- Fahrzeugdaten -->
+    <div class="card">
+      <h2>Fahrzeug</h2>
+      <div class="grid grid-2">
+        <div><label>Marke</label><input id="marke" required></div>
+        <div><label>Modell</label><input id="modell" required></div>
+        <div><label>Kontrollschild</label><input id="schild" required></div>
+        <div><label>Kilometerstand</label><input id="kilometerstand" type="number"></div>
+        <div><label>Fahrgestellnummer (VIN)</label><input id="vin"></div>
+      </div>
+    </div>
+
+    <!-- Ausweis-Foto -->
+    <div class="card">
+      <h2>Ausweis-Foto</h2>
+      <input type="file" id="ausweisFoto" accept="image/*" capture="environment">
+      <img id="fotoPreview" style="display:none; max-width:100%; margin-top:.5rem;">
+    </div>
+
+    <!-- Signaturen -->
+    <div class="card">
+      <h2>Unterschriften</h2>
+      <div class="grid grid-2">
+        <div>
+          <label>Fahrer:in</label>
+          <div class="signature-box" data-target="fahrer">Unterschrift erfassen</div>
+          <img id="sigFahrer" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataFahrer">
+        </div>
+        <div>
+          <label>Garage</label>
+          <div class="signature-box" data-target="garage">Unterschrift erfassen</div>
+          <img id="sigGarage" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataGarage">
+        </div>
+      </div>
+      <div style="margin-top:1rem; text-align:right;">
+        <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Signatur-Modal -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3>Unterschrift erfassen</h3>
+    <canvas id="signatureCanvas"></canvas>
+    <div style="margin-top:.7rem; display:flex; justify-content:space-between;">
+      <button class="btn-secondary" id="clearSig">Löschen</button>
+      <button class="btn-primary" id="saveSig">Übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
