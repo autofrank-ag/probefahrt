@@ -94,6 +94,15 @@ input, select, textarea {
   margin: 1rem auto 0;
 }
 
+/* Logo angepasst */
+.logo {
+  max-width: 120px;  /* kleineres Logo */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 @media(max-width:768px){
   .grid-2 {
     flex-direction: column;
