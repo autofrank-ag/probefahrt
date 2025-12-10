@@ -22,23 +22,23 @@
     <div class="card">
       <h2>Fahrer- & Kontaktdaten</h2>
       <div class="grid grid-2">
-        <div><label for="name">Name</label><input id="name" name="name" required></div>
-        <div><label for="vorname">Vorname</label><input id="vorname" name="vorname" required></div>
-        <div><label for="adresse">Adresse</label><input id="adresse" name="adresse" required></div>
-        <div><label for="plzOrt">PLZ / Ort</label><input id="plzOrt" name="plzOrt" required></div>
-        <div><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" required></div>
+        <div><label for="name">Name*</label><input id="name" name="name" required></div>
+        <div><label for="vorname">Vorname*</label><input id="vorname" name="vorname" required></div>
+        <div><label for="adresse">Adresse*</label><input id="adresse" name="adresse" required></div>
+        <div><label for="plzOrt">PLZ / Ort*</label><input id="plzOrt" name="plzOrt" required></div>
+        <div><label for="mobile">Mobile*</label><input id="mobile" name="mobile" type="tel" required></div>
         <div><label for="email">E-Mail</label><input id="email" name="email" type="email"></div>
-        <div><label for="geburtsdatum">Geburtsdatum</label><input id="geburtsdatum" name="geburtsdatum" type="date" required></div>
-        <div><label for="ausweisNr">Führerausweis-Nr.</label><input id="ausweisNr" name="ausweisNr" required></div>
+        <div><label for="geburtsdatum">Geburtsdatum*</label><input id="geburtsdatum" name="geburtsdatum" type="date" required></div>
+        <div><label for="ausweisNr">Führerausweis-Nr.*</label><input id="ausweisNr" name="ausweisNr" required></div>
       </div>
     </div>
 
     <!-- Fahrzeugdaten -->
     <div class="card">
-      <h2>Fahrzeug</h2>
+      <h2>Fahrzeug*</h2>
       <div class="grid grid-2">
         <div>
-          <label for="marke">Marke</label>
+          <label for="marke">Marke*</label>
           <select id="marke" name="marke" required>
             <option value="">Bitte wählen…</option>
             <option>Abarth</option>
@@ -79,8 +79,8 @@
             <option>Volvo</option>
           </select>
         </div>
-        <div><label for="modell">Modell</label><input id="modell" name="modell" required></div>
-        <div><label for="kontrollschild">Kontrollschild</label><input id="kontrollschild" name="kontrollschild" required></div>
+        <div><label for="modell">Modell*</label><input id="modell" name="modell" required></div>
+        <div><label for="kontrollschild">Kontrollschild*</label><input id="kontrollschild" name="kontrollschild" required></div>
         <div><label for="kilometerstand">Kilometerstand</label><input id="kilometerstand" name="kilometerstand" type="number"></div>
         <div><label for="vin">Fahrgestellnummer (VIN)</label><input id="vin" name="vin"></div>
       </div>
@@ -93,27 +93,46 @@
       <img id="fotoPreview" style="display:none; max-width:100%; margin-top:.5rem;">
     </div>
 
+    <!-- Datenschutz -->
+    <div class="card">
+      <h2>Datenschutz & Zustimmung*</h2>
+      <p class="small">Ich habe die Datenschutzinformation gelesen und akzeptiere diese.</p>
+      <div class="checkbox-row">
+        <input type="checkbox" id="datenschutzOk" name="datenschutzOk" required>
+        <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
+      </div>
+      <details>
+        <summary>Datenschutzinformation anzeigen</summary>
+        <div class="ds-text">
+Verantwortliche Stelle: Autofrank AG, Trockenloostrasse 65, 8105 Regensdorf, Tel.: +41 43 388 68 68, E-Mail: verkauf@autofrank.ch
+...
+(kompletter DSG Text hier)
+        </div>
+      </details>
+    </div>
+
     <!-- Signaturen -->
     <div class="card">
-      <h2>Unterschriften</h2>
+      <h2>Unterschriften*</h2>
       <div class="grid grid-2">
         <div>
-          <label>Fahrer:in</label>
+          <label>Fahrer:in*</label>
           <div class="signature-box" data-target="fahrer">Unterschrift erfassen</div>
           <img id="sigFahrer" class="signature-preview" style="display:none;">
-          <input type="hidden" id="sigDataFahrer">
+          <input type="hidden" id="sigDataFahrer" required>
         </div>
         <div>
-          <label>Garage</label>
+          <label>Garage*</label>
           <div class="signature-box" data-target="garage">Unterschrift erfassen</div>
           <img id="sigGarage" class="signature-preview" style="display:none;">
-          <input type="hidden" id="sigDataGarage">
+          <input type="hidden" id="sigDataGarage" required>
         </div>
       </div>
       <div style="margin-top:1rem; text-align:right;">
         <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
       </div>
     </div>
+
   </form>
 </div>
 
