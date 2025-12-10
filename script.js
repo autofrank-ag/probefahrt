@@ -125,14 +125,13 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   pdf.setFontSize(11);
   let y = 24;
 
-  // Felder aus Fahrer/Kontakt
+  // Felder in gewünschter Reihenfolge
   const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
                   "marke","modell","kontrollschild","kilometerstand","vin",
-                  "startzeit","endzeit","fahrzeugId",
-                  "verkaeufer","versicherung","policenNr",
-                  "bemerkungen","hinweise"];
+                  "startzeit","endzeit","fahrzeugId","verkaeufer",
+                  "selbstbehalt","lenkerAlter","bemerkungen","hinweise"];
   fields.forEach(f=>{
-    const val = document.getElementById(f).value || "";
+    const val = document.getElementById(f).value || "Keine Angabe";
     pdf.text(`${f}: ${val}`, 12, y);
     y+=8;
   });
