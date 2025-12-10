@@ -83,6 +83,7 @@
         <div><label for="kontrollschild">Kontrollschild*</label><input id="kontrollschild" name="kontrollschild" required></div>
         <div><label for="kilometerstand">Kilometerstand</label><input id="kilometerstand" name="kilometerstand" type="number"></div>
         <div><label for="vin">Fahrgestellnummer (VIN)</label><input id="vin" name="vin"></div>
+        <div><label for="wagenNr">Wagen-Nr.</label><input id="wagenNr" name="wagenNr"></div>
       </div>
     </div>
 
@@ -92,9 +93,16 @@
       <div class="grid grid-2">
         <div><label for="startzeit">Startzeit*</label><input id="startzeit" name="startzeit" type="datetime-local" required></div>
         <div><label for="endzeit">Endzeit*</label><input id="endzeit" name="endzeit" type="datetime-local" required></div>
+      </div>
+    </div>
+
+    <!-- Mitarbeiter -->
+    <div class="card">
+      <h2>Mitarbeiter*</h2>
+      <div class="grid grid-1">
         <div>
-          <label for="fahrzeugId">Fahrzeug-ID*</label>
-          <select id="fahrzeugId" name="fahrzeugId" required>
+          <label for="mitarbeiter">Mitarbeiter*</label>
+          <select id="mitarbeiter" name="mitarbeiter" required>
             <option value="">Bitte wählen…</option>
             <option>Damir Pepic</option>
             <option>Denis Pepic</option>
@@ -102,6 +110,9 @@
             <option>Yannick Rueda</option>
             <option>Volkan Celik</option>
             <option>Noari Nuzzo</option>
+            <option>Leutrim Nasufi</option>
+            <option>Nicolas Job</option>
+            <option>Fabian Knöpfli</option>
           </select>
         </div>
       </div>
@@ -170,7 +181,7 @@
 
     <!-- Datenschutz -->
     <div class="card">
-      <h2>Datenschutz & Zustimmung*</h2>
+      <h2>Datenschutz & Zustimmung* – ausführliche Version (revDSG Schweiz)</h2>
       <p class="small">Ich habe die Datenschutzinformation gelesen und akzeptiere diese.</p>
       <div class="checkbox-row">
         <input type="checkbox" id="datenschutzOk" name="datenschutzOk" required>
