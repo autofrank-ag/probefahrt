@@ -18,92 +18,117 @@
   </header>
 
   <form id="probefahrtForm">
-    <!-- Fahrer- & Kontaktdaten -->
+
+    <!-- Fahrer & Kontaktdaten -->
     <div class="card">
       <h2>Fahrer- & Kontaktdaten*</h2>
-      <div class="grid grid-2">
-        <div><label for="name">Name*</label><input id="name" name="name" required></div>
-        <div><label for="vorname">Vorname*</label><input id="vorname" name="vorname" required></div>
-        <div><label for="adresse">Adresse*</label><input id="adresse" name="adresse" required></div>
-        <div><label for="plzOrt">PLZ / Ort*</label><input id="plzOrt" name="plzOrt" required></div>
-        <div><label for="mobile">Mobile*</label><input id="mobile" name="mobile" type="tel" required></div>
-        <div><label for="email">E-Mail</label><input id="email" name="email" type="email"></div>
-        <div><label for="geburtsdatum">Geburtsdatum*</label><input id="geburtsdatum" name="geburtsdatum" type="date" required></div>
-        <div><label for="ausweisNr">Führerausweis-Nr.*</label><input id="ausweisNr" name="ausweisNr" required></div>
-      </div>
+      <input id="name" placeholder="Name*" required>
+      <input id="vorname" placeholder="Vorname*" required>
+      <input id="adresse" placeholder="Adresse*" required>
+      <input id="plzOrt" placeholder="PLZ/Ort*" required>
+      <input id="mobile" placeholder="Mobile*" required>
+      <input id="email" placeholder="E-Mail">
+      <input id="geburtsdatum" type="date" placeholder="Geburtsdatum*" required>
+      <input id="ausweisNr" placeholder="Führerausweis-Nr.*" required>
     </div>
 
     <!-- Fahrzeug -->
     <div class="card">
       <h2>Fahrzeug*</h2>
-      <div class="grid grid-2">
-        <div><label for="marke">Marke*</label>
-          <select id="marke" name="marke" required>
-            <option value="">Bitte wählen…</option>
-            <option>Abarth</option><option>Alfa Romeo</option><option>Aston Martin</option>
-            <option>Audi</option><option>BMW</option><option>Citroën</option>
-            <option>Dacia</option><option>DS Automobiles</option><option>Fiat</option>
-            <option>Ford</option><option>Honda</option><option>Hyundai</option>
-            <option>Jaguar</option><option>Jeep</option><option>Kia</option>
-            <option>Lamborghini</option><option>Land Rover</option><option>Lexus</option>
-            <option>Maserati</option><option>Mazda</option><option>Mercedes-Benz</option>
-            <option>Mini</option><option>Mitsubishi</option><option>Nissan</option>
-            <option>Opel</option><option>Peugeot</option><option>Porsche</option>
-            <option>Renault</option><option>Seat</option><option>Škoda</option>
-            <option>Subaru</option><option>Suzuki</option><option>Tesla</option>
-            <option>Toyota</option><option>Volkswagen</option><option>Volvo</option>
-          </select>
-        </div>
-        <div><label for="modell">Modell*</label><input id="modell" name="modell" required></div>
-        <div><label for="kontrollschild">Kontrollschild*</label><input id="kontrollschild" name="kontrollschild" required></div>
-        <div><label for="kilometerstand">Kilometerstand</label><input id="kilometerstand" name="kilometerstand" type="number"></div>
-        <div><label for="vin">Fahrgestellnummer (VIN)</label><input id="vin" name="vin"></div>
-        <div><label for="wagenNr">Wagen-Nr.</label><input id="wagenNr" name="wagenNr"></div>
-      </div>
+      <select id="marke" required>
+        <option value="">Marke auswählen</option>
+        <option>Abarth</option>
+        <option>Alfa Romeo</option>
+        <option>Aston Martin</option>
+        <option>Audi</option>
+        <option>BMW</option>
+        <option>Citroën</option>
+        <option>Dacia</option>
+        <option>DS Automobiles</option>
+        <option>Fiat</option>
+        <option>Ford</option>
+        <option>Honda</option>
+        <option>Hyundai</option>
+        <option>Jaguar</option>
+        <option>Jeep</option>
+        <option>Kia</option>
+        <option>Lamborghini</option>
+        <option>Land Rover</option>
+        <option>Lexus</option>
+        <option>Maserati</option>
+        <option>Mazda</option>
+        <option>Mercedes-Benz</option>
+        <option>Mini</option>
+        <option>Mitsubishi</option>
+        <option>Nissan</option>
+        <option>Opel</option>
+        <option>Peugeot</option>
+        <option>Porsche</option>
+        <option>Renault</option>
+        <option>Seat</option>
+        <option>Škoda</option>
+        <option>Subaru</option>
+        <option>Suzuki</option>
+        <option>Tesla</option>
+        <option>Toyota</option>
+        <option>Volkswagen</option>
+        <option>Volvo</option>
+      </select>
+      <input id="modell" placeholder="Modell*" required>
+      <input id="kontrollschild" placeholder="Kontrollschild*" required>
+      <input id="kilometerstand" type="number" placeholder="Kilometerstand">
+      <input id="vin" placeholder="VIN">
+      <input id="wagenNr" placeholder="Wagen-Nr.">
     </div>
 
     <!-- Probefahrt-Daten -->
     <div class="card">
       <h2>Probefahrt-Daten*</h2>
-      <div class="grid grid-2">
-        <div><label for="startzeit">Startzeit*</label><input id="startzeit" name="startzeit" type="datetime-local" required></div>
-        <div><label for="endzeit">Endzeit*</label><input id="endzeit" name="endzeit" type="datetime-local" required></div>
-      </div>
+      <input id="startzeit" type="datetime-local" required>
+      <input id="endzeit" type="datetime-local" required>
     </div>
 
     <!-- Mitarbeiter -->
     <div class="card">
       <h2>Mitarbeiter*</h2>
-      <select id="mitarbeiter" name="mitarbeiter" required>
-        <option value="">Bitte wählen…</option>
-        <option>Damir Pepic</option><option>Denis Pepic</option><option>Premtim Zuta</option>
-        <option>Yannick Rueda</option><option>Volkan Celik</option><option>Noari Nuzzo</option>
-        <option>Leutrim Nasufi</option><option>Nicolas Job</option><option>Fabian Knöpfli</option>
+      <select id="mitarbeiter" required>
+        <option value="">Bitte wählen</option>
+        <option>Damir Pepic</option>
+        <option>Denis Pepic</option>
+        <option>Premtim Zuta</option>
+        <option>Yannick Rueda</option>
+        <option>Volkan Celik</option>
+        <option>Noari Nuzzo</option>
+        <option>Leutrim Nasufi</option>
+        <option>Nicolas Job</option>
+        <option>Fabian Knöpfli</option>
       </select>
     </div>
 
     <!-- Verkäufer -->
     <div class="card">
       <h2>Verkäufer*</h2>
-      <select id="verkaeufer" name="verkaeufer" required>
-        <option value="">Bitte wählen…</option>
-        <option>Damir Pepic</option><option>Denis Pepic</option><option>Premtim Zuta</option>
-        <option>Yannick Rueda</option><option>Volkan Celik</option><option>Noari Nuzzo</option>
+      <select id="verkaeufer" required>
+        <option value="">Bitte wählen</option>
+        <option>Damir Pepic</option>
+        <option>Denis Pepic</option>
+        <option>Premtim Zuta</option>
+        <option>Yannick Rueda</option>
+        <option>Volkan Celik</option>
+        <option>Noari Nuzzo</option>
       </select>
     </div>
 
     <!-- Versicherung -->
     <div class="card">
-      <h2>Versicherung (Information)</h2>
+      <h2>Versicherung</h2>
       <ul>
         <li>Haftpflicht unbegrenzt</li>
         <li>Vollkaskoversicherung</li>
       </ul>
-      <label for="selbstbehalt">Selbstbehalt in CHF</label>
-      <input id="selbstbehalt" name="selbstbehalt" type="number" placeholder="z. B. 500">
-      <label for="lenkerAlter">Lenker:in</label>
-      <select id="lenkerAlter" name="lenkerAlter">
-        <option value="">Keine Angabe</option>
+      <input id="selbstbehalt" type="number" placeholder="Selbstbehalt in CHF">
+      <select id="lenkerAlter">
+        <option value="">Lenker:in</option>
         <option value="unter25">unter 25 Jahren</option>
         <option value="ueber25">25 Jahre oder älter</option>
       </select>
@@ -112,10 +137,8 @@
     <!-- Sonstiges -->
     <div class="card">
       <h2>Sonstiges</h2>
-      <label for="bemerkungen">Bemerkungen</label>
-      <textarea id="bemerkungen" name="bemerkungen" rows="3"></textarea>
-      <label for="hinweise">Spezielle Hinweise</label>
-      <textarea id="hinweise" name="hinweise" rows="3"></textarea>
+      <textarea id="bemerkungen" placeholder="Bemerkungen"></textarea>
+      <textarea id="hinweise" placeholder="Spezielle Hinweise"></textarea>
     </div>
 
     <!-- Ausweis-Foto -->
@@ -128,8 +151,10 @@
     <!-- Datenschutz -->
     <div class="card">
       <h2>Datenschutz & Zustimmung* – ausführliche Version (revDSG Schweiz)</h2>
-      <input type="checkbox" id="datenschutzOk" name="datenschutzOk" required>
-      <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
+      <div class="checkbox-row">
+        <input type="checkbox" id="datenschutzOk" required>
+        <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
+      </div>
       <details>
         <summary>Datenschutzinformationen anzeigen</summary>
         <pre id="datenschutzText" style="white-space: pre-wrap;"></pre>
@@ -139,17 +164,25 @@
     <!-- Signaturen -->
     <div class="card">
       <h2>Unterschriften*</h2>
-      <div class="signature-box" data-target="fahrer">Unterschrift Fahrer erfassen</div>
-      <img id="sigFahrer" class="signature-preview" style="display:none;">
-      <input type="hidden" id="sigDataFahrer" required>
+      <div class="grid-2">
+        <div>
+          <label>Fahrer:in*</label>
+          <div class="signature-box" data-target="fahrer">Unterschrift erfassen</div>
+          <img id="sigFahrer" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataFahrer" required>
+        </div>
+        <div>
+          <label>Garage*</label>
+          <div class="signature-box" data-target="garage">Unterschrift erfassen</div>
+          <img id="sigGarage" class="signature-preview" style="display:none;">
+          <input type="hidden" id="sigDataGarage" required>
+        </div>
+      </div>
 
-      <div class="signature-box" data-target="garage">Unterschrift Garage erfassen</div>
-      <img id="sigGarage" class="signature-preview" style="display:none;">
-      <input type="hidden" id="sigDataGarage" required>
-
-      <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
+      <div style="text-align:center; margin-top:1rem;">
+        <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
+      </div>
     </div>
+
   </form>
 </div>
-</body>
-</html>
