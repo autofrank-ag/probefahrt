@@ -80,9 +80,9 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   const form = document.getElementById("probefahrtForm");
   let valid = true;
 
-  // Alle Pflichtfelder prüfen
+  // Pflichtfelder prüfen
   form.querySelectorAll("[required]").forEach(field=>{
-    field.style.border = ""; // Reset
+    field.style.border = "";
     let error = field.nextElementSibling;
     if(error && error.classList.contains("error-msg")) error.remove();
 
@@ -125,10 +125,10 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   pdf.setFontSize(11);
   let y = 24;
 
-  // Felder in gewünschter Reihenfolge
+  // Felder aus Formular
   const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
-                  "marke","modell","kontrollschild","kilometerstand","vin",
-                  "startzeit","endzeit","fahrzeugId","verkaeufer",
+                  "marke","modell","kontrollschild","kilometerstand","vin","wagenNr",
+                  "startzeit","endzeit","mitarbeiter","verkaeufer",
                   "selbstbehalt","lenkerAlter","bemerkungen","hinweise"];
   fields.forEach(f=>{
     const val = document.getElementById(f).value || "Keine Angabe";
@@ -152,5 +152,16 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   y += 45;
   pdf.text(`Datenschutz akzeptiert: ${dsCheck}`, 12, y);
 
-  pdf.save("probefahrt_autofrank.pdf");
+  // PDF-Dateiname dynamisch: Vorname_Name_Zeitstempel
+  const vorname = document.getElementById("vorname").value || "Vorname";
+  const name = document.getElementById("name").value || "Nachname";
+  const now = new Date();
+  const timestamp = now.getFullYear().toString() +
+                    String(now.getMonth()+1).padStart(2,'0') +
+                    String(now.getDate()).padStart(2,'0') + "_" +
+                    String(now.getHours()).padStart(2,'0') +
+                    String(now.getMinutes()).padStart(2,'0') +
+                    String(now.getSeconds()).padStart(2,'0');
+
+  pdf.save(`Probefahrt_${vorname}_${name}_${timestamp}.pdf`);
 };
