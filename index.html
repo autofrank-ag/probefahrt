@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Probefahrt – Autofrank AG</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="assets/js/jspdf.umd.min.js"></script>
+<script src="assets/js/html2canvas.min.js"></script>
+<script src="script.js"></script>
 </head>
 <body>
 <div class="page">
@@ -17,7 +18,6 @@
   </header>
 
   <form id="probefahrtForm">
-
     <!-- Fahrer- & Kontaktdaten -->
     <div class="card">
       <h2>Fahrer- & Kontaktdaten*</h2>
@@ -33,50 +33,25 @@
       </div>
     </div>
 
-    <!-- Fahrzeugdaten -->
+    <!-- Fahrzeug -->
     <div class="card">
       <h2>Fahrzeug*</h2>
       <div class="grid grid-2">
-        <div>
-          <label for="marke">Marke*</label>
+        <div><label for="marke">Marke*</label>
           <select id="marke" name="marke" required>
             <option value="">Bitte wählen…</option>
-            <option>Abarth</option>
-            <option>Alfa Romeo</option>
-            <option>Aston Martin</option>
-            <option>Audi</option>
-            <option>BMW</option>
-            <option>Citroën</option>
-            <option>Dacia</option>
-            <option>DS Automobiles</option>
-            <option>Fiat</option>
-            <option>Ford</option>
-            <option>Honda</option>
-            <option>Hyundai</option>
-            <option>Jaguar</option>
-            <option>Jeep</option>
-            <option>Kia</option>
-            <option>Lamborghini</option>
-            <option>Land Rover</option>
-            <option>Lexus</option>
-            <option>Maserati</option>
-            <option>Mazda</option>
-            <option>Mercedes-Benz</option>
-            <option>Mini</option>
-            <option>Mitsubishi</option>
-            <option>Nissan</option>
-            <option>Opel</option>
-            <option>Peugeot</option>
-            <option>Porsche</option>
-            <option>Renault</option>
-            <option>Seat</option>
-            <option>Škoda</option>
-            <option>Subaru</option>
-            <option>Suzuki</option>
-            <option>Tesla</option>
-            <option>Toyota</option>
-            <option>Volkswagen</option>
-            <option>Volvo</option>
+            <option>Abarth</option><option>Alfa Romeo</option><option>Aston Martin</option>
+            <option>Audi</option><option>BMW</option><option>Citroën</option>
+            <option>Dacia</option><option>DS Automobiles</option><option>Fiat</option>
+            <option>Ford</option><option>Honda</option><option>Hyundai</option>
+            <option>Jaguar</option><option>Jeep</option><option>Kia</option>
+            <option>Lamborghini</option><option>Land Rover</option><option>Lexus</option>
+            <option>Maserati</option><option>Mazda</option><option>Mercedes-Benz</option>
+            <option>Mini</option><option>Mitsubishi</option><option>Nissan</option>
+            <option>Opel</option><option>Peugeot</option><option>Porsche</option>
+            <option>Renault</option><option>Seat</option><option>Škoda</option>
+            <option>Subaru</option><option>Suzuki</option><option>Tesla</option>
+            <option>Toyota</option><option>Volkswagen</option><option>Volvo</option>
           </select>
         </div>
         <div><label for="modell">Modell*</label><input id="modell" name="modell" required></div>
@@ -99,77 +74,48 @@
     <!-- Mitarbeiter -->
     <div class="card">
       <h2>Mitarbeiter*</h2>
-      <div class="grid grid-1">
-        <div>
-          <label for="mitarbeiter">Mitarbeiter*</label>
-          <select id="mitarbeiter" name="mitarbeiter" required>
-            <option value="">Bitte wählen…</option>
-            <option>Damir Pepic</option>
-            <option>Denis Pepic</option>
-            <option>Premtim Zuta</option>
-            <option>Yannick Rueda</option>
-            <option>Volkan Celik</option>
-            <option>Noari Nuzzo</option>
-            <option>Leutrim Nasufi</option>
-            <option>Nicolas Job</option>
-            <option>Fabian Knöpfli</option>
-          </select>
-        </div>
-      </div>
+      <select id="mitarbeiter" name="mitarbeiter" required>
+        <option value="">Bitte wählen…</option>
+        <option>Damir Pepic</option><option>Denis Pepic</option><option>Premtim Zuta</option>
+        <option>Yannick Rueda</option><option>Volkan Celik</option><option>Noari Nuzzo</option>
+        <option>Leutrim Nasufi</option><option>Nicolas Job</option><option>Fabian Knöpfli</option>
+      </select>
     </div>
 
     <!-- Verkäufer -->
     <div class="card">
       <h2>Verkäufer*</h2>
-      <div class="grid grid-1">
-        <div>
-          <label for="verkaeufer">Verkäufer*</label>
-          <select id="verkaeufer" name="verkaeufer" required>
-            <option value="">Bitte wählen…</option>
-            <option>Damir Pepic</option>
-            <option>Denis Pepic</option>
-            <option>Premtim Zuta</option>
-            <option>Yannick Rueda</option>
-            <option>Volkan Celik</option>
-            <option>Noari Nuzzo</option>
-          </select>
-        </div>
-      </div>
+      <select id="verkaeufer" name="verkaeufer" required>
+        <option value="">Bitte wählen…</option>
+        <option>Damir Pepic</option><option>Denis Pepic</option><option>Premtim Zuta</option>
+        <option>Yannick Rueda</option><option>Volkan Celik</option><option>Noari Nuzzo</option>
+      </select>
     </div>
 
-    <!-- Versicherungsinfo -->
+    <!-- Versicherung -->
     <div class="card">
       <h2>Versicherung (Information)</h2>
-      <p class="small">
-        Autofrank AG hat nachfolgende Versicherungen abgeschlossen:
-      </p>
-      <ul class="small">
+      <ul>
         <li>Haftpflicht unbegrenzt</li>
         <li>Vollkaskoversicherung</li>
       </ul>
-      <div class="grid grid-3">
-        <div>
-          <label for="selbstbehalt">Selbstbehalt in CHF</label>
-          <input id="selbstbehalt" name="selbstbehalt" type="number" placeholder="z. B. 500" />
-        </div>
-        <div>
-          <label for="lenkerAlter">Lenker:in</label>
-          <select id="lenkerAlter" name="lenkerAlter">
-            <option value="">Keine Angabe</option>
-            <option value="unter25">unter 25 Jahren</option>
-            <option value="ueber25">25 Jahre oder älter</option>
-          </select>
-        </div>
-      </div>
+      <label for="selbstbehalt">Selbstbehalt in CHF</label>
+      <input id="selbstbehalt" name="selbstbehalt" type="number" placeholder="z. B. 500">
+      <label for="lenkerAlter">Lenker:in</label>
+      <select id="lenkerAlter" name="lenkerAlter">
+        <option value="">Keine Angabe</option>
+        <option value="unter25">unter 25 Jahren</option>
+        <option value="ueber25">25 Jahre oder älter</option>
+      </select>
     </div>
 
     <!-- Sonstiges -->
     <div class="card">
       <h2>Sonstiges</h2>
-      <div class="grid grid-1">
-        <div><label for="bemerkungen">Bemerkungen</label><textarea id="bemerkungen" name="bemerkungen" rows="3"></textarea></div>
-        <div><label for="hinweise">Spezielle Hinweise</label><textarea id="hinweise" name="hinweise" rows="3"></textarea></div>
-      </div>
+      <label for="bemerkungen">Bemerkungen</label>
+      <textarea id="bemerkungen" name="bemerkungen" rows="3"></textarea>
+      <label for="hinweise">Spezielle Hinweise</label>
+      <textarea id="hinweise" name="hinweise" rows="3"></textarea>
     </div>
 
     <!-- Ausweis-Foto -->
@@ -182,11 +128,8 @@
     <!-- Datenschutz -->
     <div class="card">
       <h2>Datenschutz & Zustimmung* – ausführliche Version (revDSG Schweiz)</h2>
-      <p class="small">Ich habe die Datenschutzinformation gelesen und akzeptiere diese.</p>
-      <div class="checkbox-row">
-        <input type="checkbox" id="datenschutzOk" name="datenschutzOk" required>
-        <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
-      </div>
+      <input type="checkbox" id="datenschutzOk" name="datenschutzOk" required>
+      <label for="datenschutzOk">Ich akzeptiere die Datenschutzbestimmungen.</label>
       <details>
         <summary>Datenschutzinformationen anzeigen</summary>
         <pre id="datenschutzText" style="white-space: pre-wrap;"></pre>
@@ -196,102 +139,17 @@
     <!-- Signaturen -->
     <div class="card">
       <h2>Unterschriften*</h2>
-      <div class="grid grid-2">
-        <div>
-          <label>Fahrer:in*</label>
-          <div class="signature-box" data-target="fahrer">Unterschrift erfassen</div>
-          <img id="sigFahrer" class="signature-preview" style="display:none;">
-          <input type="hidden" id="sigDataFahrer" required>
-        </div>
-        <div>
-          <label>Garage*</label>
-          <div class="signature-box" data-target="garage">Unterschrift erfassen</div>
-          <img id="sigGarage" class="signature-preview" style="display:none;">
-          <input type="hidden" id="sigDataGarage" required>
-        </div>
-      </div>
-      <div style="margin-top:1rem; text-align:right;">
-        <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
-      </div>
-    </div>
+      <div class="signature-box" data-target="fahrer">Unterschrift Fahrer erfassen</div>
+      <img id="sigFahrer" class="signature-preview" style="display:none;">
+      <input type="hidden" id="sigDataFahrer" required>
 
+      <div class="signature-box" data-target="garage">Unterschrift Garage erfassen</div>
+      <img id="sigGarage" class="signature-preview" style="display:none;">
+      <input type="hidden" id="sigDataGarage" required>
+
+      <button type="button" class="btn-primary" id="pdfBtn">PDF speichern</button>
+    </div>
   </form>
 </div>
-
-<!-- Signatur-Modal -->
-<div class="modal-backdrop" id="modal">
-  <div class="modal">
-    <h3>Unterschrift erfassen</h3>
-    <canvas id="signatureCanvas"></canvas>
-    <div style="margin-top:.7rem; display:flex; justify-content:space-between;">
-      <button class="btn-secondary" id="clearSig">Löschen</button>
-      <button class="btn-primary" id="saveSig">Übernehmen</button>
-    </div>
-  </div>
-</div>
-
-<script src="script.js"></script>
-<script>
-  // Datenschutztext einfügen
-  const datenschutzText = `
-Verantwortliche Stelle
-Autofrank AG
-Trockenloostrasse 65
-8105 Regensdorf
-Tel.: +41 43 388 68 68
-E-Mail: verkauf@autofrank.ch
-
-1) Zweck der Datenbearbeitung
-Wir bearbeiten Ihre Personendaten im Rahmen der Probefahrt zum Zweck:
-• der Prüfung Ihrer Fahrberechtigung
-• der Durchführung und Abwicklung der Probefahrt
-• der Identifikation im Schadenfall
-• der Sicherstellung vertraglicher und versicherungsrechtlicher Pflichten
-• der Wahrung unserer berechtigten Interessen (u. a. Schutz von Fahrzeugen)
-Die Bereitstellung der Daten ist für die Durchführung einer Probefahrt erforderlich.
-Ohne diese Angaben ist eine Probefahrt nicht möglich.
-
-2) Kategorien von Personendaten
-Wir bearbeiten insbesondere folgende Datenkategorien:
-• Identifikationsdaten (Name, Vorname, Adresse, Geburtsdatum)
-• Kontaktdaten (Telefonnummer, E-Mail falls angegeben)
-• Führerausweis-Daten (Nummer, Gültigkeit)
-• Fahrzeugbezogene Daten der Probefahrt (Kennzeichen, Kilometerstand, Datum, Fahrzeiten)
-• Unterschrift
-Falls ein Schaden entsteht, können zusätzliche Angaben erforderlich sein (z. B. Beschreibung des Vorfalls).
-
-3) Empfänger von Personendaten
-Ihre Daten können weitergegeben werden an:
-• Versicherungen
-• Strafverfolgungsbehörden / zuständige Ämter (nur falls erforderlich)
-• Partnerunternehmen zur administrativen Unterstützung
-Eine Weitergabe erfolgt ausschliesslich für die oben genannten Zwecke.
-
-4) Aufbewahrungsdauer
-Die Daten werden nur so lange gespeichert, wie dies:
-• zur Erreichung der Zwecke erforderlich ist oder
-• gesetzliche Aufbewahrungsfristen bestehen (z. B. Versicherungs- / Haftpflichtrecht)
-Danach werden die Daten gelöscht oder anonymisiert.
-
-5) Rechte der betroffenen Person
-Sie haben nach revDSG folgende Rechte:
-• Auskunft über Ihre bearbeiteten Personendaten
-• Berichtigung unrichtiger oder unvollständiger Daten
-• Löschung, sofern keine gesetzlichen Pflichten entgegenstehen
-• Einschränkung der Bearbeitung
-• Widerspruch gegen Bearbeitung, soweit sich diese auf überwiegende Interessen stützt
-Anfragen richten Sie bitte an: verkauf@autofrank.ch
-Wir beantworten Ihr Anliegen so schnell wie möglich und gemäss den gesetzlichen Vorgaben.
-
-6) Datensicherheit
-Wir schützen Ihre Daten mit angemessenen technischen und organisatorischen Massnahmen
-gegen Verlust, unberechtigten Zugriff, Manipulation und unbefugte Weitergabe.
-
-7) Bestätigung
-Mit Ihrer Unterschrift bestätigen Sie, dass Sie diese Datenschutzinformation
-zur Kenntnis genommen haben und mit der Bearbeitung der Personendaten einverstanden sind.
-  `;
-  document.getElementById("datenschutzText").textContent = datenschutzText;
-</script>
 </body>
 </html>
