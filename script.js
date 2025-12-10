@@ -82,10 +82,98 @@ document.getElementById("pdfBtn").onclick=()=>{
     const foto=document.getElementById("fotoPreview");
     if(foto && foto.src && foto.style.display!=="none"){y+=2; pdf.text("8. Ausweis-Foto",12,y); y+=4; pdf.addImage(foto.src,"JPEG",12,y,60,40); y+=45;}
 
-    // Datenschutz
-    y+=2; pdf.text("9. Datenschutz",12,y); y+=6;
-    const dsCheck=document.getElementById("datenschutzOk").checked?"Ja":"Nein";
-    pdf.text(`Datenschutz akzeptiert: ${dsCheck}`,12,y); y+=10;
+    // Datenschutztext (vollständig)
+const datenschutzText = `
+Verantwortliche Stelle
+Autofrank AG
+Trockenloostrasse 65
+8105 Regensdorf
+Tel.: +41 43 388 68 68
+E-Mail: verkauf@autofrank.ch
+
+1) Zweck der Datenbearbeitung
+Wir bearbeiten Ihre Personendaten im Rahmen der Probefahrt ...
+
+2) Kategorien von Personendaten
+Identifikationsdaten, Kontaktdaten, Führerausweis, Fahrzeugdaten, Unterschrift
+
+3) Empfänger von Personendaten
+Versicherungen, Strafverfolgungsbehörden, Partnerunternehmen
+
+4) Aufbewahrungsdauer
+Nur solange erforderlich oder gesetzlich vorgeschrieben
+
+5) Rechte der betroffenen Person
+Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch
+
+6) Datensicherheit
+Technische und organisatorische Massnahmen
+
+7) Bestätigung
+Mit Ihrer Unterschrift bestätigen Sie, dass Sie die Datenschutzinformation
+zur Kenntnis genommen haben und einverstanden sind.
+`;
+
+document.getElementById("datenschutzText").textContent = datenschutzText;
+
+// Foto-Preview
+document.getElementById("ausweisFoto").addEventListener("change", e=>{
+  const file=e.target.files[0];
+  const img=document.getElementById("fotoPreview");
+  if(!file){ img.style.display="none"; img.src=""; return; }
+  const reader=new FileReader();
+  reader.onload=ev=>{ img.src=ev.target.result; img.style.display="block"; }
+  reader.readAsDataURL(file);
+});
+
+// Signaturen
+let currentSig=null;
+document.querySelectorAll(".signature-box").forEach(box=>{
+  box.onclick=()=>{
+    currentSig=box.dataset.target;
+    const sigCanvas=document.createElement("canvas");
+    sigCanvas.width=400; sigCanvas.height=150;
+    sigCanvas.style.border="1px solid #000";
+    sigCanvas.style.position="fixed";
+    sigCanvas.style.left="50%"; sigCanvas.style.top="50%";
+    sigCanvas.style.transform="translate(-50%,-50%)";
+    sigCanvas.style.zIndex="9999";
+    document.body.appendChild(sigCanvas);
+    const ctx=sigCanvas.getContext("2d");
+    ctx.lineWidth=2; ctx.lineCap="round";
+    let drawing=false;
+
+    sigCanvas.addEventListener("mousedown",e=>{
+      drawing=true; ctx.beginPath(); ctx.moveTo(e.offsetX,e.offsetY);
+    });
+    sigCanvas.addEventListener("mousemove",e=>{
+      if(drawing){ ctx.lineTo(e.offsetX,e.offsetY); ctx.stroke();}
+    });
+    sigCanvas.addEventListener("mouseup",()=>{drawing=false;});
+    sigCanvas.addEventListener("mouseleave",()=>{drawing=false;});
+
+    // Speichern bei Doppelklick
+    sigCanvas.addEventListener("dblclick",()=>{
+      const dataUrl=sigCanvas.toDataURL();
+      if(currentSig==="fahrer"){
+        document.getElementById("sigDataFahrer").value=dataUrl;
+        document.getElementById("sigFahrer").src=dataUrl;
+        document.getElementById("sigFahrer").style.display="block";
+      }else{
+        document.getElementById("sigDataGarage").value=dataUrl;
+        document.getElementById("sigGarage").src=dataUrl;
+        document.getElementById("sigGarage").style.display="block";
+      }
+      document.body.removeChild(sigCanvas);
+    });
+  };
+};
+
+// PDF speichern (nur über GitHub funktioniert weiterhin lokal, du kannst später optional jsPDF einbinden)
+document.getElementById("pdfBtn").onclick=()=>{
+  alert("PDF-Speicherung kann optional mit jsPDF lokal oder über GitHub aktiviert werden.");
+};
+
 
     // Signaturen
     y+=2; pdf.text("10. Unterschriften",12,y); y+=6;
@@ -103,3 +191,4 @@ document.getElementById("pdfBtn").onclick=()=>{
     pdf.save(`Probefahrt_${vorname}_${name}_${timestamp}.pdf`);
   };
 };
+
