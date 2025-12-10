@@ -109,7 +109,7 @@ document.querySelectorAll(".signature-box").forEach(box=>{
       document.body.removeChild(canvas);
     });
   };
-};
+});
 
 // PDF Button placeholder
 document.getElementById("pdfBtn").onclick = ()=>{
