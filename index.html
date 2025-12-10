@@ -20,7 +20,7 @@
 
     <!-- Fahrer- & Kontaktdaten -->
     <div class="card">
-      <h2>Fahrer- & Kontaktdaten</h2>
+      <h2>Fahrer- & Kontaktdaten*</h2>
       <div class="grid grid-2">
         <div><label for="name">Name*</label><input id="name" name="name" required></div>
         <div><label for="vorname">Vorname*</label><input id="vorname" name="vorname" required></div>
@@ -86,6 +86,53 @@
       </div>
     </div>
 
+    <!-- Probefahrt-Daten -->
+    <div class="card">
+      <h2>Probefahrt-Daten*</h2>
+      <div class="grid grid-2">
+        <div><label for="startzeit">Startzeit*</label><input id="startzeit" name="startzeit" type="datetime-local" required></div>
+        <div><label for="endzeit">Endzeit*</label><input id="endzeit" name="endzeit" type="datetime-local" required></div>
+        <div><label for="fahrzeugId">Fahrzeug-ID*</label><input id="fahrzeugId" name="fahrzeugId" required></div>
+      </div>
+    </div>
+
+    <!-- Verkäufer -->
+    <div class="card">
+      <h2>Verkäufer*</h2>
+      <div class="grid grid-1">
+        <div>
+          <label for="verkaeufer">Verkäufer*</label>
+          <select id="verkaeufer" name="verkaeufer" required>
+            <option value="">Bitte wählen…</option>
+            <option>Damir Pepic</option>
+            <option>Denis Pepic</option>
+            <option>Premtim Zuta</option>
+            <option>Yannick Rueda</option>
+            <option>Volkan Celik</option>
+            <option>Noari Nuzzo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Versicherung -->
+    <div class="card">
+      <h2>Versicherung*</h2>
+      <div class="grid grid-2">
+        <div><label for="versicherung">Versicherungsfirma*</label><input id="versicherung" name="versicherung" required></div>
+        <div><label for="policenNr">Policen-Nr.*</label><input id="policenNr" name="policenNr" required></div>
+      </div>
+    </div>
+
+    <!-- Sonstiges -->
+    <div class="card">
+      <h2>Sonstiges</h2>
+      <div class="grid grid-1">
+        <div><label for="bemerkungen">Bemerkungen</label><textarea id="bemerkungen" name="bemerkungen" rows="3"></textarea></div>
+        <div><label for="hinweise">Spezielle Hinweise</label><textarea id="hinweise" name="hinweise" rows="3"></textarea></div>
+      </div>
+    </div>
+
     <!-- Ausweis-Foto -->
     <div class="card">
       <h2>Ausweis-Foto</h2>
@@ -104,9 +151,14 @@
       <details>
         <summary>Datenschutzinformation anzeigen</summary>
         <div class="ds-text">
-Verantwortliche Stelle: Autofrank AG, Trockenloostrasse 65, 8105 Regensdorf, Tel.: +41 43 388 68 68, E-Mail: verkauf@autofrank.ch
-...
-(kompletter DSG Text hier)
+          Verantwortliche Stelle: Autofrank AG, Trockenloostrasse 65, 8105 Regensdorf, Tel.: +41 43 388 68 68, E-Mail: verkauf@autofrank.ch
+          <br>1) Zweck der Datenbearbeitung: Probefahrt prüfen, Identifikation, Vertragspflichten, Versicherungsschutz etc.
+          <br>2) Kategorien: Name, Vorname, Adresse, Geburtsdatum, Führerausweis, Fahrzeugdaten, Signaturen
+          <br>3) Empfänger: Versicherungen, Behörden (falls nötig)
+          <br>4) Aufbewahrung: Gesetzlich vorgeschrieben oder solange notwendig
+          <br>5) Rechte: Auskunft, Löschung, Berichtigung, Widerspruch
+          <br>6) Datensicherheit: Technische und organisatorische Massnahmen
+          <br>7) Bestätigung: Mit Unterschrift bestätige ich Kenntnisnahme
         </div>
       </details>
     </div>
