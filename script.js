@@ -82,7 +82,7 @@ document.getElementById("pdfBtn").onclick = async ()=>{
 
   // Alle Pflichtfelder prüfen
   form.querySelectorAll("[required]").forEach(field=>{
-    field.style.border = ""; // reset
+    field.style.border = ""; // Reset
     let error = field.nextElementSibling;
     if(error && error.classList.contains("error-msg")) error.remove();
 
@@ -95,7 +95,7 @@ document.getElementById("pdfBtn").onclick = async ()=>{
       msg.style.fontSize="0.8rem";
       msg.textContent="Bitte bestätigen";
       field.parentNode.appendChild(msg);
-    } else if((field.type==="text" || field.tagName==="INPUT" || field.tagName==="SELECT" || field.tagName==="DATE") && !field.value){
+    } else if((field.tagName==="INPUT" || field.tagName==="SELECT" || field.tagName==="TEXTAREA") && !field.value){
       valid=false;
       field.style.border="2px solid red";
       const msg = document.createElement("div");
@@ -123,16 +123,21 @@ document.getElementById("pdfBtn").onclick = async ()=>{
   pdf.text("Probefahrt – Autofrank AG", 12, 12);
 
   pdf.setFontSize(11);
-  const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
-                  "marke","modell","kontrollschild","kilometerstand","vin"];
   let y = 24;
+
+  // Felder aus Fahrer/Kontakt
+  const fields = ["name","vorname","adresse","plzOrt","mobile","email","geburtsdatum","ausweisNr",
+                  "marke","modell","kontrollschild","kilometerstand","vin",
+                  "startzeit","endzeit","fahrzeugId",
+                  "verkaeufer","versicherung","policenNr",
+                  "bemerkungen","hinweise"];
   fields.forEach(f=>{
     const val = document.getElementById(f).value || "";
     pdf.text(`${f}: ${val}`, 12, y);
     y+=8;
   });
 
-  // Unterschriften
+  // Signaturen
   if(sigF) pdf.addImage(sigF,"PNG",12,y,50,20);
   if(sigG) pdf.addImage(sigG,"PNG",80,y,50,20);
   y+=25;
