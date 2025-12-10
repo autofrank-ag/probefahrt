@@ -1,5 +1,5 @@
 // DSG Text
-const datenschutzText = `
+document.getElementById("datenschutzText").textContent = `
 Verantwortliche Stelle
 Autofrank AG
 Trockenloostrasse 65
@@ -58,60 +58,66 @@ Mit Ihrer Unterschrift bestätigen Sie, dass Sie diese Datenschutzinformation
 zur Kenntnis genommen haben und mit der Bearbeitung der Personendaten einverstanden sind.
 `;
 
-document.getElementById("datenschutzText").textContent = datenschutzText;
-
-// Foto Preview
-document.getElementById("ausweisFoto").addEventListener("change", e=>{
+// Foto
+document.getElementById("ausweisFoto").addEventListener("change", e => {
   const file = e.target.files[0];
   const img = document.getElementById("fotoPreview");
-  if(!file){ img.style.display="none"; img.src=""; return; }
+  if (!file) return;
   const reader = new FileReader();
-  reader.onload = ev => { img.src = ev.target.result; img.style.display="block"; };
+  reader.onload = ev => {
+    img.src = ev.target.result;
+    img.style.display = "block";
+  };
   reader.readAsDataURL(file);
 });
 
 // Signaturen
-document.querySelectorAll(".signature-box").forEach(box=>{
-  box.onclick = ()=>{
+document.querySelectorAll(".signature-box").forEach(box => {
+  box.onclick = () => {
     const target = box.dataset.target;
     const canvas = document.createElement("canvas");
-    canvas.width=400; canvas.height=150;
-    canvas.style.border="1px solid #000";
-    canvas.style.position="fixed";
-    canvas.style.left="50%"; canvas.style.top="50%";
-    canvas.style.transform="translate(-50%,-50%)";
-    canvas.style.zIndex="9999";
+    canvas.width = 400;
+    canvas.height = 150;
+    canvas.style.position = "fixed";
+    canvas.style.top = "50%";
+    canvas.style.left = "50%";
+    canvas.style.transform = "translate(-50%, -50%)";
+    canvas.style.border = "2px solid black";
+    canvas.style.background = "white";
+    canvas.style.zIndex = "9999";
     document.body.appendChild(canvas);
+
     const ctx = canvas.getContext("2d");
-    ctx.lineWidth=2; ctx.lineCap="round";
-    let drawing=false;
+    let drawing = false;
 
-    canvas.addEventListener("mousedown", e=>{
-      drawing=true; ctx.beginPath(); ctx.moveTo(e.offsetX,e.offsetY);
-    });
-    canvas.addEventListener("mousemove", e=>{
-      if(drawing){ ctx.lineTo(e.offsetX,e.offsetY); ctx.stroke(); }
-    });
-    canvas.addEventListener("mouseup", ()=>{ drawing=false; });
-    canvas.addEventListener("mouseleave", ()=>{ drawing=false; });
+    canvas.onmousedown = e => {
+      drawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    };
 
-    canvas.addEventListener("dblclick", ()=>{
-      const dataUrl = canvas.toDataURL();
-      if(target==="fahrer"){
-        document.getElementById("sigDataFahrer").value=dataUrl;
-        document.getElementById("sigFahrer").src=dataUrl;
-        document.getElementById("sigFahrer").style.display="block";
-      } else {
-        document.getElementById("sigDataGarage").value=dataUrl;
-        document.getElementById("sigGarage").src=dataUrl;
-        document.getElementById("sigGarage").style.display="block";
+    canvas.onmousemove = e => {
+      if (drawing) {
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
       }
-      document.body.removeChild(canvas);
-    });
+    };
+
+    canvas.onmouseup = () => drawing = false;
+    canvas.onmouseleave = () => drawing = false;
+
+    canvas.ondblclick = () => {
+      const data = canvas.toDataURL();
+      const img = document.getElementById(target);
+      document.getElementById("sigData" + target.replace("sig", "")).value = data;
+      img.src = data;
+      img.style.display = "block";
+      canvas.remove();
+    };
   };
 });
 
-// PDF Button placeholder
-document.getElementById("pdfBtn").onclick = ()=>{
-  alert("PDF-Funktion kann optional über jsPDF aktiviert werden.");
+// PDF = nur Druckdialog
+document.getElementById("pdfBtn").onclick = () => {
+  window.print();
 };
